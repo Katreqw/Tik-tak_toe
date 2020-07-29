@@ -1,0 +1,156 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+:root {
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size) *.9)
+}
+
+.board {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    /* place-items: center;  */
+    grid-template-columns: repeat(3, auto);
+}
+
+.cell.x::after,
+.cell.x::before,
+.cell.circel::before {
+    background-color: black;
+}
+
+
+.board.x .cell:not(.x):not(.circel):hover::before,
+.board.x .cell:not(.x):not(.circel):hover::after,
+.board.circel .cell:not(.x):not(.circel):hover::before{
+    background-color: lightgray;
+}
+
+.cell {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+
+.cell.x,
+.cell.circel {
+    cursor: not-allowed;
+}
+
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+    border-top: 0;
+}
+
+.cell:nth-child(3n + 1) {
+    border-left: 0;
+}
+
+.cell:nth-child(3n + 3) {
+    border-right: 0;
+}
+
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+    border-bottom: 0;
+}
+
+.cell.x::before,
+.cell.x::after,
+.board.x .cell:not(.x):not(.circel):hover::before,
+.board.x .cell:not(.x):not(.circel):hover::after {
+    position: absolute;
+    content: '';
+    width: calc(var(--mark-size) * .15);
+    height: var(--mark-size);
+}
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.circel):hover::before {
+    transform: rotate(45deg);
+}
+
+.cell.x::after,
+.board.x .cell:not(.x):not(.circel):hover::after {
+    transform: rotate(-45deg);
+}
+
+
+
+.cell.circel::before,
+.cell.circel::after,
+.board.circel .cell:not(.x):not(.circel):hover::before,
+.board.circel .cell:not(.x):not(.circel):hover::after {
+    position: absolute;
+    content: '';
+    border-radius: 50%;
+}
+
+.cell.circel::before,
+.board.circel .cell:not(.x):not(.circel):hover::before {
+    width: var(--mark-size);
+    height: var(--mark-size);
+}
+
+.cell.circel::after,
+.board.circel .cell:not(.x):not(.circel):hover::after {
+    width: calc(var(--mark-size)* .75);
+    height: calc(var(--mark-size)* .75);
+    ;
+    background-color: white;
+}
+
+
+
+.winning-massage {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .9);
+    justify-content: center;
+    align-content: center;
+    color: white;
+    font-size: 5rem;
+}
+
+.winning-massage button {
+    font-size: 3rem;
+    background-color: white;
+    border: 1px solid black;
+    padding: .3em .5em;
+    cursor: pointer;
+    transition: all .2s linear;
+}
+
+.winning-massage button:hover{
+    background-color: black;
+    color: white;
+    border-color: white;
+}
+
+.winning-massage.show {
+    display: grid;
+}
